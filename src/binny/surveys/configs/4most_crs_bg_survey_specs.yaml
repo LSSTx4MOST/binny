@@ -6,17 +6,17 @@ survey_meta:
 
   footprint:
     nominal:
-      survey_area: 5500.0
+      survey_area: 5700
       description: 4MOST CRS BG overlap with LSST.
 
     overlap_scenarios:
       crs_bg_lsst:
-        survey_area: 5500.0
+        survey_area: 5700
         sample: bg
         description: 4MOST CRS BG overlap with LSST.
 
   notes:
-    - Smail parameters (z0, alpha, beta) and the 5500 deg2 CRS BG x LSST overlap area are from Bandi et al. 2026.
+    - Smail parameters (z0, alpha, beta) and the 5700 deg2 CRS BG x LSST overlap area are from Bandi et al. 2026.
     - binny Smail convention is n(z) = (z / z0)^alpha * exp[-(z / z0)^beta].
     - Single BG sample, no magnitude slices.
     - Spec-z bins use hard true-z edges with no uncertainty terms (no completeness, catastrophic or scatter model).
@@ -36,7 +36,7 @@ tomography:
 
     sample_properties:
       footprint:
-        survey_area: 5700.0
+        survey_area: 5700
 
     nz:
       model: smail

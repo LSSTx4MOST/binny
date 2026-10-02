@@ -1,0 +1,51 @@
+name: 4most_crs_bg  # 4MOST CRS Bright Galaxy (BG) sample, Bandi et al. 2026
+
+survey_meta:
+  description: 4MOST CRS Bright Galaxy (BG) sample, Smail fit to the n(z), no magnitude slices.
+  reference: Bandi et al. 2026
+
+  footprint:
+    nominal:
+      survey_area: 5500.0
+      description: 4MOST CRS BG overlap with LSST.
+
+    overlap_scenarios:
+      crs_bg_lsst:
+        survey_area: 5500.0
+        sample: bg
+        description: 4MOST CRS BG overlap with LSST.
+
+  notes:
+    - Smail parameters (z0, alpha, beta) and the 5500 deg2 CRS BG x LSST overlap area are from Bandi et al. 2026.
+    - binny Smail convention is n(z) = (z / z0)^alpha * exp[-(z / z0)^beta].
+    - Single BG sample, no magnitude slices.
+    - Spec-z bins use hard true-z edges with no uncertainty terms (no completeness, catastrophic or scatter model).
+    - Spec-z is from DESI DR1 observations with 4MOST-CRS target selection (Verdier et al 2025)
+
+z_grid:
+  start: 0.0
+  stop: 0.5
+  n: 51  # dz = 0.01
+
+tomography:
+  # 4MOST CRS BG, used as a source sample
+  - role: source
+    sample: bg
+    name: 4MOST CRS BG (Smail fit, no mag slices)
+    kind: specz
+
+    sample_properties:
+      footprint:
+        survey_area: 5700.0
+
+    nz:
+      model: smail
+      params:
+        z0: 1.95545983e-02 
+        alpha: 9.43
+        beta: 0.928
+        normalize: true
+
+    bins:
+      scheme: equidistant
+      n_bins: 5  # spans the full z_grid, edges 0.0, 0.1, 0.2, 0.3, 0.4, 0.5

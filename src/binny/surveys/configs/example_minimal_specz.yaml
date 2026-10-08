@@ -6,8 +6,6 @@ z_grid: {start: 0.0, stop: 2.0, n: 301}  # common true-z grid for all outputs
 
 tomography:
   - role: lens  # sample label (lens/source)
-    year: '4'  # string is recommended for stable keys
-
     kind: specz  # dispatcher: specz binning (hard edges + optional misassignment)
 
     nz:  # parent / underlying true-redshift distribution n(z)
@@ -16,7 +14,7 @@ tomography:
 
     bins:
       scheme: equidistant  # binning scheme used to construct edges
-      n_bins: 4
+      n_bins: 5
       # range: [0.0, 2.0]  # optional restriction for binning
       # edges: [0.0, 0.5, 1.0, 1.5, 2.0]  # alternative to scheme-based
 

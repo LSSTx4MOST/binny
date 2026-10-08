@@ -22,30 +22,62 @@ survey_meta:
     - Spec-z bins use hard true-z edges with no uncertainty terms (no completeness, catastrophic or scatter model).
     - Spec-z is from DESI DR1 observations with 4MOST-CRS target selection (Verdier et al 2025)
 
-z_grid:
-  start: 0.0
-  stop: 0.5
-  n: 51  # dz = 0.01
+# z_grid:
+#   start: 0.0
+#   stop: 0.5
+#   n: 51  # dz = 0.01
+
+# tomography:
+#   # 4MOST CRS BG, used as a source sample
+#   - role: source
+#     sample: bg
+#     name: 4MOST CRS BG (Smail fit, no mag slices)
+#     kind: specz
+
+#     sample_properties:
+#       footprint:
+#         survey_area: 5700
+
+#     nz:
+#       model: smail
+#       params:
+#         z0: 1.95545983e-02 
+#         alpha: 9.43
+#         beta: 0.928
+#         normalize: true
+
+#     bins:
+#       scheme: equidistant
+#       n_bins: 5  # spans the full z_grid, edges 0.0, 0.1, 0.2, 0.3, 0.4, 0.5
+    
+#     # Spec-z selection / assignment model parameters
+#     # (names depend on what your spec-z builder supports)
+#     uncertainties:
+#     completeness: 1.0  # fraction kept/assigned (1.0 = complete)
+
+#     normalize_bins: true  # normalize each output bin n_i(z) to unit integral
+
+z_grid: {start: 0.0, stop: 0.5, n: 50}  # common true-z grid for all outputs
 
 tomography:
-  # 4MOST CRS BG, used as a source sample
   - role: source
-    sample: bg
-    name: 4MOST CRS BG (Smail fit, no mag slices)
-    kind: specz
+    sample: bg   
+    kind: specz  # dispatcher: specz binning (hard edges + optional misassignment)
 
-    sample_properties:
-      footprint:
-        survey_area: 5700
-
-    nz:
+    nz:  # parent / underlying true-redshift distribution n(z)
       model: smail
-      params:
-        z0: 1.95545983e-02 
-        alpha: 9.43
-        beta: 0.928
-        normalize: true
+      params: {z0: 1.95e-02 , alpha: 9.43, beta: 0.92}
 
     bins:
-      scheme: equidistant
-      n_bins: 5  # spans the full z_grid, edges 0.0, 0.1, 0.2, 0.3, 0.4, 0.5
+      scheme: equidistant  # binning scheme used to construct edges
+      n_bins: 5
+      # range: [0.0, 2.0]  # optional restriction for binning
+      # edges: [0.0, 0.5, 1.0, 1.5, 2.0]  # alternative to scheme-based
+
+    # Spec-z selection / assignment model parameters
+    # (names depend on what your spec-z builder supports)
+    uncertainties:
+      completeness: 1.0  # fraction kept/assigned (1.0 = complete)
+      specz_scatter: [0, 0, 0, 0, 0,]
+
+    normalize_bins: true  # normalize each output bin n_i(z) to unit integral
